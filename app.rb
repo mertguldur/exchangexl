@@ -1,6 +1,5 @@
-require 'sinatra'
-require 'haml'
-
-get '/' do
-  haml :index
+class App < Sinatra::Base
+  get '/' do
+    haml :index
+  end
 end
