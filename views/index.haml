@@ -1,44 +1,35 @@
-!!!
-%html
-  %head
-    %title ExchangeXL
-    //%script{ src: javascript_path('application') }
-    %link{:href => "/vendor/bootstrap/css/bootstrap.min.css", :rel => "stylesheet"}/
-
-  %body
-    .container
-      .row
-        .col-md-6
-          %h1 ExchangeXL
-      .row
-        .col-md-6
-          %table.table.table-striped
-            %thead
-              %tr
-                %th Company
-                %th Value
-                %th Shares
-                %th Sell
-                %th Buy
-            %tbody
-              %tr
-                %td Franecki-Marquardt
-                %td $0.00
-                %td 0
-                %td
-                  %button.btn.btn-info -1
-                %td
-                  %button.btn.btn-success +1
-              %tr
-                %td Stoltenberg
-                %td $0.00
-                %td 0
-                %td
-                  %button.btn.btn-info -1
-                %td
-                  %button.btn.btn-success +1
-        .col-md-6
-          %h4 Investments: $0.00
-          %h4 Cash: $0.00
-          %h4 Day 1
-          %button.btn.btn-warning Advance
+.row
+  .col-md-6
+    %h1 ExchangeXL
+.row
+  .col-md-6
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Company
+          %th Value
+          %th Shares
+          %th Sell
+          %th Buy
+      %tbody
+        %tr
+          %td Franecki-Marquardt
+          %td $0.00
+          %td 0
+          %td
+            %button.btn.btn-info -1
+          %td
+            %button.btn.btn-success +1
+        %tr
+          %td Stoltenberg
+          %td $0.00
+          %td 0
+          %td
+            %button.btn.btn-info -1
+          %td
+            %button.btn.btn-success +1
+  .col-md-6
+    %h4 Investments: $0.00
+    %h4 Cash: $0.00
+    %h4 Day 1
+    %button.btn.btn-warning Advance
