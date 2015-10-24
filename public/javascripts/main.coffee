@@ -4,17 +4,18 @@ $(document).ready ->
 class StocksController
   constructor: ->
     @view = new StocksView
-    @stocks = this.create_stocks()
+    @stocks = (new CreateStocks).call()
     @view.render(@stocks)
 
-  create_stocks: ->
-    company_names = this.company_names()
+class CreateStocks
+  call: ->
+    companyNames = this.companyNames()
     stocks = []
-    for company_name in company_names
-      stocks.push(new Stock(company_name))
+    for companyName in companyNames
+      stocks.push(new Stock(companyName))
     stocks
 
-  company_names: ->
+  companyNames: ->
     [
       'Emmerich Group',
       'Walker-Connelly',
@@ -27,27 +28,27 @@ class StocksController
     ]
 
 class Stock
-  constructor: (@company_name) ->
+  constructor: (@companyName) ->
     @shares = 0
-    @share_price = 0
+    @sharePrice = 0
 
-  total_price: ->
-    @shares * @share_price
+  totalPrice: ->
+    @shares * @sharePrice
 
 class StocksView
   render: (stocks) ->
-    sell_button = $('<td>').append($('<button>', class: 'btn btn-info').text('-'))
-    buy_button = $('<td>').append($('<button>', class: 'btn btn-success').text('+'))
+    sellButton = $('<td>').append($('<button>', class: 'btn btn-info').text('-'))
+    buyButton = $('<td>').append($('<button>', class: 'btn btn-success').text('+'))
     for stock in stocks
       $('#stocks').append(
         $('<tr>').append(
           [
-            $('<td>').text(stock.company_name),
-            $('<td>').text("$#{stock.total_price().toPrecision(3)}"),
-            $('<td>').text("$#{stock.share_price.toPrecision(3)}"),
+            $('<td>').text(stock.companyName),
+            $('<td>').text("$#{stock.totalPrice().toPrecision(3)}"),
+            $('<td>').text("$#{stock.sharePrice.toPrecision(3)}"),
             $('<td>').text(stock.shares),
-            sell_button.clone(),
-            buy_button.clone()
+            sellButton.clone(),
+            buyButton.clone()
           ]
         )
       )
