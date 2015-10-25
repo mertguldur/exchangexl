@@ -13,10 +13,17 @@ class window.Market
 
   sellStock: (id) ->
     stock = @stocks[id]
-    stock.sell()
+    if stock.shares > 0
+      stock.sell()
+      @investments.subtract(stock.sharePrice)
+      @cash.add(stock.sharePrice)
     stock
 
   buyStock: (id) ->
     stock = @stocks[id]
-    stock.buy()
+    sharePrice = stock.sharePrice
+    if @cash.equalTo(sharePrice) || @cash.greaterThan(sharePrice)
+      stock.buy()
+      @investments.add(sharePrice)
+      @cash.subtract(sharePrice)
     stock

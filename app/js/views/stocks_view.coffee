@@ -1,5 +1,5 @@
 class window.StocksView
-  render: (stocks) ->
+  render: (stocks, investments, cash) ->
     for id, stock of stocks
       $('#stocks').append(
         $('<tr>', id: "stock-#{id}").append(
@@ -13,8 +13,16 @@ class window.StocksView
           ]
         )
       )
+    $('#investments').text(investments.print())
+    $('#cash').text(cash.print())
 
-  update: (stock) ->
+  updateStock: (stock) ->
     $("#stock-#{stock.id} .total-price").text(stock.totalPrice().print())
     $("#stock-#{stock.id} .share-price").text(stock.sharePrice.print())
     $("#stock-#{stock.id} .shares").text(stock.shares)
+
+  updateInvestments: (investments) ->
+    $('#investments').text(investments.print())
+
+  updateCash: (cash) ->
+    $('#cash').text(cash.print())

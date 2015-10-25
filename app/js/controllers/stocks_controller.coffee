@@ -2,7 +2,7 @@ class window.StocksController
   constructor: ->
     @view = new StocksView
     @market = new Market
-    @view.render(@market.stocks)
+    @view.render(@market.stocks, @market.investments, @market.cash)
     this.registerRoutes()
 
   registerRoutes: ->
@@ -13,15 +13,21 @@ class window.StocksController
     self = this
     $('.sell-button').click ->
       id = self.buttonStockId($(this))
-      stock = self.market.sellStock(id)
-      self.view.update(stock)
+      market = self.market
+      stock = market.sellStock(id)
+      self.view.updateStock(stock)
+      self.view.updateInvestments(market.investments)
+      self.view.updateCash(market.cash)
 
   buy: ->
     self = this
     $('.buy-button').click ->
       id = self.buttonStockId($(this))
-      stock = self.market.buyStock(id)
-      self.view.update(stock)
+      market = self.market
+      stock = market.buyStock(id)
+      self.view.updateStock(stock)
+      self.view.updateInvestments(market.investments)
+      self.view.updateCash(market.cash)
 
   buttonStockId: (button) ->
     button.parent().parent().attr('id').replace('stock-', '')

@@ -6,12 +6,11 @@ class window.Stock
 
   totalPrice: ->
     price = @sharePrice.clone()
-    price.multiply(@shares)
+    price.multiplyAmount(@shares)
     price
 
   sell: ->
-    @shares -= 1 if @shares > 0
+    @shares -= 1
 
   buy: ->
     @shares += 1
-

@@ -11,8 +11,20 @@ class window.Money
   value: ->
     this.toDollars(@pennies)
 
-  multiply: (value) ->
-    @pennies *= value
+  add: (money) ->
+    @pennies += money.pennies
+
+  subtract: (money) ->
+    @pennies -= money.pennies
+
+  multiplyAmount: (amount) ->
+    @pennies *= amount
+
+  equalTo: (money) ->
+    @pennies == money.pennies
+
+  greaterThan: (money) ->
+    @pennies > money.pennies
 
   toPennies: (dollars) ->
     dollars * 100.0
