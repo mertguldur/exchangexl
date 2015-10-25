@@ -3,7 +3,7 @@ require 'bundler'
 
 Bundler.require
 
+require 'sinatra/assetpack'
 require './app'
 
-use Rack::Coffee, root: 'public', urls: '/javascripts'
 run App
