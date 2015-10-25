@@ -3,6 +3,7 @@ class window.Market
     this.createStocks()
     @investments = new Money(0)
     @cash = new Money(5000)
+    @day = 1
 
   createStocks: ->
     stockData = (new StockData).data
@@ -27,3 +28,6 @@ class window.Market
       @investments.add(sharePrice)
       @cash.subtract(sharePrice)
     stock
+
+  simulate: ->
+    @day += 1

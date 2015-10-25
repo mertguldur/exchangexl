@@ -1,6 +1,6 @@
 class window.StocksView
-  render: (stocks, investments, cash) ->
-    for id, stock of stocks
+  render: (market) ->
+    for id, stock of market.stocks
       $('#stocks').append(
         $('<tr>', id: "stock-#{id}").append(
           [
@@ -13,8 +13,16 @@ class window.StocksView
           ]
         )
       )
-    $('#investments').text(investments.print())
-    $('#cash').text(cash.print())
+    this.updateInvestments(market.investments)
+    this.updateCash(market.cash)
+    this.updateDay(market.day)
+
+  update: (market) ->
+    for id, stock of market.stocks
+      this.updateStock(stock)
+    this.updateInvestments(market.investments)
+    this.updateCash(market.cash)
+    this.updateDay(market.day)
 
   updateStock: (stock) ->
     $("#stock-#{stock.id} .total-price").text(stock.totalPrice().print())
@@ -26,3 +34,6 @@ class window.StocksView
 
   updateCash: (cash) ->
     $('#cash').text(cash.print())
+
+  updateDay: (day) ->
+    $('#day').text(day)
