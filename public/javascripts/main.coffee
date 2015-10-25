@@ -4,8 +4,8 @@ $(document).ready ->
 class StocksController
   constructor: ->
     @view = new StocksView
-    @stocks = (new CreateStocks).call()
-    @view.render(@stocks)
+    @market = new Market
+    @view.render(@market.stocks)
     this.registerRoutes()
 
   registerRoutes: ->
@@ -16,29 +16,39 @@ class StocksController
     self = this
     $('.sell-button').click ->
       id = self.buttonStockId($(this))
-      stock = self.stocks[id]
-      stock.sell()
+      stock = self.market.sellStock(id)
       self.view.update(stock)
 
   buy: ->
     self = this
     $('.buy-button').click ->
       id = self.buttonStockId($(this))
-      stock = self.stocks[id]
-      stock.buy()
+      stock = self.market.buyStock(id)
       self.view.update(stock)
 
   buttonStockId: (button) ->
     button.parent().parent().attr('id').replace('stock-', '')
 
-class CreateStocks
-  call: ->
+class Market
+  constructor: ->
+    this.createStocks()
+
+  createStocks: ->
     companyNames = this.companyNames()
-    stocks = {}
+    @stocks = {}
     for companyName in companyNames
-      id = Object.keys(stocks).length + 1
-      stocks[id] = new Stock(id, companyName)
-    stocks
+      id = Object.keys(@stocks).length + 1
+      @stocks[id] = new Stock(id, companyName)
+
+  sellStock: (id) ->
+    stock = @stocks[id]
+    stock.sell()
+    stock
+
+  buyStock: (id) ->
+    stock = @stocks[id]
+    stock.buy()
+    stock
 
   companyNames: ->
     [
