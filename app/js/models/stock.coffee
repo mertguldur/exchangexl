@@ -1,14 +1,13 @@
 class window.Stock
   constructor: (@id, attrs) ->
     @companyName = attrs['companyName']
-    @sharePricePennies = this.toPennies(attrs['sharePrice'])
+    @sharePrice = new Money(attrs['sharePrice'])
     @shares = 0
 
-  sharePrice: ->
-    this.toDollars(@sharePricePennies)
-
   totalPrice: ->
-    this.toDollars(@shares * @sharePricePennies)
+    price = @sharePrice.clone()
+    price.multiply(@shares)
+    price
 
   sell: ->
     @shares -= 1 if @shares > 0
@@ -16,8 +15,3 @@ class window.Stock
   buy: ->
     @shares += 1
 
-  toPennies: (dollars) ->
-    dollars * 100.0
-
-  toDollars: (pennies) ->
-    pennies / 100.0

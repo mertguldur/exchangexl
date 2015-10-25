@@ -1,6 +1,8 @@
 class window.Market
   constructor: ->
     this.createStocks()
+    @investments = new Money(0)
+    @cash = new Money(5000)
 
   createStocks: ->
     stockData = (new StockData).data
