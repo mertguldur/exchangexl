@@ -13,14 +13,23 @@ class StocksController
     this.buy()
 
   sell: ->
-    $('.sell-button').click =>
-      id = $(this).attr('stock_id')
-      @stocks[id].sell()
+    self = this
+    $('.sell-button').click ->
+      id = self.buttonStockId($(this))
+      stock = self.stocks[id]
+      stock.sell()
+      self.view.update(stock)
 
   buy: ->
+    self = this
     $('.buy-button').click ->
-      id = $(this).attr('stock_id')
-      @stocks[id].buy()
+      id = self.buttonStockId($(this))
+      stock = self.stocks[id]
+      stock.buy()
+      self.view.update(stock)
+
+  buttonStockId: (button) ->
+    button.parent().parent().attr('id').replace('stock-', '')
 
 class CreateStocks
   call: ->
@@ -52,8 +61,7 @@ class Stock
     @shares * @sharePrice
 
   sell: ->
-    return if @shares == 0
-    @shares -= 1
+    @shares -= 1 if @shares > 0
 
   buy: ->
     @shares += 1
@@ -62,19 +70,19 @@ class StocksView
   render: (stocks) ->
     for id, stock of stocks
       $('#stocks').append(
-        $('<tr>', id: "stock_#{id}").append(
+        $('<tr>', id: "stock-#{id}").append(
           [
             $('<td>').text(stock.companyName),
             $('<td>', class: 'total-price').text("$#{stock.totalPrice().toPrecision(3)}"),
             $('<td>', class: 'share-price').text("$#{stock.sharePrice.toPrecision(3)}"),
             $('<td>', class: 'shares').text(stock.shares),
-            $('<td>').append($('<button>', stock_id: id, class: 'sell-button btn btn-info').text('-'))
-            $('<td>').append($('<button>', stock_id: id, class: 'buy-button btn btn-success').text('+'))
+            $('<td>').append($('<button>', class: 'sell-button btn btn-info').text('-'))
+            $('<td>').append($('<button>', class: 'buy-button btn btn-success').text('+'))
           ]
         )
       )
 
   update: (stock) ->
-    $("#stock-#{stock.id} .total-price").text(stock.total_price())
-    $("#stock-#{stock.id} .share-price").text(stock.share_price)
+    $("#stock-#{stock.id} .total-price").text(stock.totalPrice())
+    $("#stock-#{stock.id} .share-price").text(stock.sharePrice)
     $("#stock-#{stock.id} .shares").text(stock.shares)
