@@ -12,8 +12,8 @@ class App < Sinatra::Base
       '/js/**/*'
     ]
 
-    css :application, [
-      '/css/bootstrap.min.css'
+    css :vendor, [
+      'vendor/css/bootstrap.min.css'
     ]
   end
 
