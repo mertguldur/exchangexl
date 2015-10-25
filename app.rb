@@ -2,8 +2,14 @@ class App < Sinatra::Base
   register Sinatra::AssetPack
 
   assets do
+    serve '/vendor', from: 'vendor'
+
+    js :vendor, [
+      '/vendor/js/*'
+    ]
+
     js :application, [
-      '/js/*.js',
+      '/js/**/*'
     ]
 
     css :application, [
