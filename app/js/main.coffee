@@ -1,2 +1,2 @@
 $(document).ready ->
-  new StocksController
+  new MarketController

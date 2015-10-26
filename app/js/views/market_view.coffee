@@ -1,4 +1,4 @@
-class window.StocksView
+class window.MarketView
   render: (market) ->
     for id, stock of market.stocks
       $('#stocks').append(

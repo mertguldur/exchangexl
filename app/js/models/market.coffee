@@ -8,18 +8,18 @@ class window.Market
     stockData = (new StockData).data
     @stocks = {}
     for stockAttrs in stockData
-      id = Object.keys(@stocks).length + 1
-      @stocks[id] = new Stock(id, stockAttrs)
+      stockId = Object.keys(@stocks).length + 1
+      @stocks[stockId] = new Stock(stockId, stockAttrs)
 
-  sellStock: (id) ->
-    stock = @stocks[id]
+  sellStock: (stockId) ->
+    stock = @stocks[stockId]
     if stock.shares > 0
       stock.sell()
       @cash.add(stock.sharePrice)
     stock
 
-  buyStock: (id) ->
-    stock = @stocks[id]
+  buyStock: (stockId) ->
+    stock = @stocks[stockId]
     sharePrice = stock.sharePrice
     if @cash.equalTo(sharePrice) || @cash.greaterThan(sharePrice)
       stock.buy()
@@ -28,11 +28,11 @@ class window.Market
 
   investments: ->
     sum = new Money(0)
-    for id, stock of @stocks
+    for stockId, stock of @stocks
       sum.add(stock.totalPrice())
     sum
 
   simulate: ->
-    for id, stock of @stocks
+    for stockId, stock of @stocks
       stock.simulate()
     @day += 1
