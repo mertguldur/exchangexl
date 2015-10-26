@@ -13,14 +13,14 @@ class window.StocksView
           ]
         )
       )
-    this.updateInvestments(market.investments)
+    this.updateInvestments(market.investments())
     this.updateCash(market.cash)
     this.updateDay(market.day)
 
   update: (market) ->
     for id, stock of market.stocks
       this.updateStock(stock)
-    this.updateInvestments(market.investments)
+    this.updateInvestments(market.investments())
     this.updateCash(market.cash)
     this.updateDay(market.day)
 

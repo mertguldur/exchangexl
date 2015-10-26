@@ -14,3 +14,10 @@ class window.Stock
 
   buy: ->
     @shares += 1
+
+  simulate: ->
+    priceChangeRate = Math.random() / 10
+    priceChangeRate *= -1 if Math.random() < 0.5
+    priceChange = @sharePrice.clone()
+    priceChange.multiplyAmount(priceChangeRate)
+    @sharePrice.add(priceChange)

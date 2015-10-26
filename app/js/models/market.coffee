@@ -1,7 +1,6 @@
 class window.Market
   constructor: ->
     this.createStocks()
-    @investments = new Money(0)
     @cash = new Money(5000)
     @day = 1
 
@@ -16,7 +15,6 @@ class window.Market
     stock = @stocks[id]
     if stock.shares > 0
       stock.sell()
-      @investments.subtract(stock.sharePrice)
       @cash.add(stock.sharePrice)
     stock
 
@@ -25,9 +23,16 @@ class window.Market
     sharePrice = stock.sharePrice
     if @cash.equalTo(sharePrice) || @cash.greaterThan(sharePrice)
       stock.buy()
-      @investments.add(sharePrice)
       @cash.subtract(sharePrice)
     stock
 
+  investments: ->
+    sum = new Money(0)
+    for id, stock of @stocks
+      sum.add(stock.totalPrice())
+    sum
+
   simulate: ->
+    for id, stock of @stocks
+      stock.simulate()
     @day += 1
